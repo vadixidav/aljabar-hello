@@ -113,9 +113,11 @@ end of query stack
 I tried to make a simple BitArray. This also failed almost right away:
 
 ```rust
-error: internal compiler error: src/librustc_mir/monomorphize/collector.rs:1290: collection encountered polymorphic constant
- --> src/bitarray.rs:1:38
-  |
-1 | struct BitArray<const B: usize>([u8; {(B + 7) / 8}]);
-  |                                      ^^^^^^^^^^^^^
+error[E0277]: the trait bound `[u8; 1]: std::convert::From<aljabar::Vector<u8, {(B + 7) / 8}>>` is not satisfied
+  --> src/bitarray.rs:15:26
+   |
+15 |     let b: [u8; 1] = b.0.into();
+   |                          ^^^^ the trait `std::convert::From<aljabar::Vector<u8, {(B + 7) / 8}>>` is not implemented for `[u8; 1]`
+   |
+   = note: required because of the requirements on the impl of `std::convert::Into<[u8; 1]>` for `aljabar::Vector<u8, {(B + 7) / 8}>`
 ```

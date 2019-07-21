@@ -1,8 +1,10 @@
-struct BitArray<const B: usize>([u8; {(B + 7) / 8}]);
+use aljabar::{Vector, Zero};
+
+struct BitArray<const B: usize>(Vector<u8, {(B + 7) / 8}>);
 
 impl<const B: usize> BitArray<{B}> {
     fn zero() -> Self {
-        Self([0; {(B + 7) / 8}])
+        Self(Vector::zero())
     }
 }
 
@@ -10,5 +12,6 @@ impl<const B: usize> BitArray<{B}> {
 #[test]
 fn test() {
     let b: BitArray<1> = BitArray::zero();
-    assert_eq!(b.0[0], 0);
+    let b: [u8; 1] = b.0.into();
+    assert_eq!(b, [0]);
 }
