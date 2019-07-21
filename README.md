@@ -121,3 +121,5 @@ error[E0277]: the trait bound `[u8; 1]: std::convert::From<aljabar::Vector<u8, {
    |
    = note: required because of the requirements on the impl of `std::convert::Into<[u8; 1]>` for `aljabar::Vector<u8, {(B + 7) / 8}>`
 ```
+
+It seems to be unable to resolve `(B + 1) / 8` into `1` as it should, and just leaves it as the expression. This causes it to be unable to unify the array in `Into<[u8; 1]>`. If we simply used the constant `1` it would work, so this basically means that we can't create bit arrays with const generics yet.
