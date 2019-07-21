@@ -107,3 +107,15 @@ query stack during panic:
 #3 [analysis] running analysis passes on this crate
 end of query stack
 ```
+
+## BitArray
+
+I tried to make a simple BitArray. This also failed almost right away:
+
+```rust
+error: internal compiler error: src/librustc_mir/monomorphize/collector.rs:1290: collection encountered polymorphic constant
+ --> src/bitarray.rs:1:38
+  |
+1 | struct BitArray<const B: usize>([u8; {(B + 7) / 8}]);
+  |                                      ^^^^^^^^^^^^^
+```
